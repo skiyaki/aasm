@@ -59,6 +59,7 @@ module AASM
         if @klass.ancestors.map {|klass| klass.to_s}.include?("ActiveRecord::Base")
 
           conditions = {"#{@klass.table_name}.#{@klass.aasm.attribute_name}" => name.to_s}
+          conditions = {"#{@klass.aasm.attribute_name}" => name.to_s}
           if ActiveRecord::VERSION::MAJOR >= 3
             @klass.class_eval do
               scope name, lambda { where(conditions) }
